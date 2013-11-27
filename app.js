@@ -3,10 +3,6 @@ var csv = require("fast-csv"),
 	querystring = require('querystring'),
 	kmeans = require('node-kmeans');
 
-function getTrainingSetSize(total_size){
-	var portion_of_test_data = 1/2;
-	return total_size - total_size*portion_of_test_data;
-}
 var complete_data = []; 
 
 csv("shots-10000.csv")
@@ -17,6 +13,14 @@ csv("shots-10000.csv")
  	plot_velocity_angle(60);
  })
  .parse();
+
+function getTrainingSetSize(total_size){
+	var portion_of_test_data = 1/2;
+	return total_size - total_size*portion_of_test_data;
+}
+function getTestSetSize(total_size){
+	return total_size - getTrainingSetSize(total_size);
+}
 
 function plot_velocity_angle( bucketSize ){
  	var number_of_buckets = 360/bucketSize;
@@ -43,6 +47,14 @@ function plot_velocity_angle( bucketSize ){
  	}
  	plot(probabilities, "velocity_angle");
 
+ 	var error = 0;
+ 	for(var i = 0; i< getTestSetSize(complete_data.length); i++){
+ 		//the index of the bucket where the test entry would fall
+ 		var velocity_angle = complete_data[i][8];
+ 		var bucket_index = Math.floor((parseInt(velocity_angle)+180)/bucketSize);
+ 		error += Math.pow( complete_data[i][0] - probabilities[bucket_index] , 2);
+ 	}
+ 	console.log("Error rate for velocity_angle: "+error/getTestSetSize(complete_data.length));
  }
 
 function plot(data, filename){
@@ -87,8 +99,9 @@ function sendData(data, filename){
 	console.log(encoded);
 	console.log();
   	var options = {
-	  hostname: 'www.plot.ly',
+	  hostname: 'plot.ly',
 	  path: '/clientresp',
+	  port: 443,
 	  method: 'POST',
 	  headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
