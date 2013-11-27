@@ -1,0 +1,12 @@
+Error rate for velocity_angle with bucketSize (60): 0.24854677402072875
+Error rate for velocity_angle with bucketSize (10): 0.24972113303389665
+Error rate for dplayer_dist with bucketSize (10): 0.24858864514536544
+Error rate for dplayer_dist with bucketSize (2): 0.24923324659922183
+Error rate for dplayer_angle with bucketSize (60): 0.24700845446850658
+Error rate for dplayer_angle with bucketSize (10): 0.24872567018335148
+Error rate for dplayer_velocity_mag with bucketSize (10): 0.24876674469033933
+Error rate for dplayer_velocity_mag with bucketSize (2): 0.24980174593844126
+Error rate for dplayer_velocity_angle with bucketSize (2): 0.24906335976806573
+Error rate for dplayer_velocity_angle with bucketSize (1): 0.25011631526543404
+Error rate for dplayer_velocity_mag & dplayer_velocity_anglewith bucketSize (10) & (2) respectively: 0.25134882719303364
+Error rate for dplayer_dist & dplayer_anglewith bucketSize (10) & (60) respectively: 0.24778234720928963
